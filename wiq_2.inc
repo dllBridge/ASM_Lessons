@@ -33,10 +33,10 @@ local	 @@hdc:DWORD
 		call	INIT
      .L_01:	call	START
 		invoke	 __Transit, 3, Transit
-		invoke	 InvalidateRect, [hwnd], 0, 0	;заставляем главное окно перерисоваться...
+		invoke	 InvalidateRect, [hwnd], 0, 0	;Р·Р°СЃС‚Р°РІР»СЏРµРј РіР»Р°РІРЅРѕРµ РѕРєРЅРѕ РїРµСЂРµСЂРёСЃРѕРІР°С‚СЊСЃСЏ...  
 		ret
  ;-------------------------------------------------------
-		;	Обработка событий от меню
+		;	РћР±СЂР°Р±РѕС‚РєР° СЃРѕР±С‹С‚РёР№ РѕС‚ РјРµРЅСЋ  
 		;----------------------------------------
  .wmCommand:	mov	dl, byte [wparam]
 		cmp	dl, 1
@@ -50,18 +50,18 @@ local	 @@hdc:DWORD
       .L_05:	ret
 
 
-		;Кликнут пункт меню О программе..
+		;РљР»РёРєРЅСѓС‚ РїСѓРЅРєС‚ РјРµРЅСЋ Рћ РїСЂРѕРіСЂР°РјРјРµ..  
  ; .cmdAbout:	 invoke MessageBoxA, [hwnd], AboutText, AboutCaption, MB_ICONINFORMATION
  ;		 ret
  ; ------------------------------------------------------
 
- .wmMousemove:	mov	eax, [lparam]	 ; Отделяем младшее слово
-		shl	eax, 16 	 ; Сначала сдвигаем влево на 16 bit
-		shr	eax, 16 	 ; а затем обратно (вправо) на 16 bit
-		mov	[xMove], eax	 ; после этих сдвигов в старших 16 bit остались только нули
-		mov	eax, [lparam]	 ; Теперь отделяем старшее слово...
-		shr	eax, 16 	 ; только один раз сдвигаем вправо на 16 bit
-		mov	[yMove], eax	 ; Координата Y готова - слева 16 bit содержат одни нули    Mouse_Y
+ .wmMousemove:  mov     eax, [lparam]    ; РћС‚РґРµР»СЏРµРј РјР»Р°РґС€РµРµ СЃР»РѕРІРѕ
+                shl     eax, 16          ; РЎРЅР°С‡Р°Р»Р° СЃРґРІРёРіР°РµРј РІР»РµРІРѕ РЅР° 16 bit
+                shr     eax, 16          ; Р° Р·Р°С‚РµРј РѕР±СЂР°С‚РЅРѕ (РІРїСЂР°РІРѕ) РЅР° 16 bit
+                mov     [xMove], eax     ; РїРѕСЃР»Рµ СЌС‚РёС… СЃРґРІРёРіРѕРІ РІ СЃС‚Р°СЂС€РёС… 16 bit РѕСЃС‚Р°Р»РёСЃСЊ С‚РѕР»СЊРєРѕ РЅСѓР»Рё
+                mov     eax, [lparam]    ; РўРµРїРµСЂСЊ РѕС‚РґРµР»СЏРµРј СЃС‚Р°СЂС€РµРµ СЃР»РѕРІРѕ...
+                shr     eax, 16          ; С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЂР°Р· СЃРґРІРёРіР°РµРј РІРїСЂР°РІРѕ РЅР° 16 bit
+                mov     [yMove], eax     ; РљРѕРѕСЂРґРёРЅР°С‚Р° Y РіРѕС‚РѕРІР° - СЃР»РµРІР° 16 bit СЃРѕРґРµСЂР¶Р°С‚ РѕРґРЅРё РЅСѓР»Рё    Mouse_Y   
 		invoke	wsprintfA, Mouse_X_Y + 14, intmask, [xMove]
 		invoke	wsprintfA, Mouse_Y + 6, intmask, [yMove]
 		ccall	_lstrcat,  Mouse_X_Y, Mouse_Y
@@ -69,7 +69,7 @@ local	 @@hdc:DWORD
 		ret
  ; ------------------------------------------------------
 
-  .wmPaint:	; invoke  TextOut,[TmpDC] , 130, 200 ,_error, 15	 ;  [TmpDC]	 'ASSA_SONY_козлы'
+  .wmPaint:	; invoke  TextOut,[TmpDC] , 130, 200 ,_error, 1
 
 		invoke	BeginPaint, [hwnd], PaintStruct   ; ps
 				     ; 720, 480
@@ -79,7 +79,7 @@ local	 @@hdc:DWORD
  ; ------------------------------------------------------
 
   .wmdestroy:
-		invoke DeleteObject, [hnewf]		;  Удаляем нащ красивый шрифт
+		invoke DeleteObject, [hnewf]		;  РЈРґР°Р»СЏРµРј РЅР°С‰ РєСЂР°СЃРёРІС‹Р№ С€СЂРёС„С‚   
 		invoke DeleteObject, [TmpDC]
 		invoke DeleteObject, [TmpBmp]
 		invoke DeleteObject, [BlackPen]
@@ -131,4 +131,4 @@ endp
 
 
 
- ; CreateStatusBar hwnd  ;создание строки состояния...
+ ; CreateStatusBar hwnd  ;Г±Г®Г§Г¤Г Г­ГЁГҐ Г±ГІГ°Г®ГЄГЁ Г±Г®Г±ГІГ®ГїГ­ГЁГї...
